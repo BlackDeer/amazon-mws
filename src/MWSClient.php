@@ -1255,11 +1255,19 @@ class MWSClient{
                 $this->client = new Client();
             }
 
-            $response = $this->client->request(
-                $endPoint['method'],
-                $this->config['Region_Url'] . $endPoint['path'],
-                $requestOptions
-            );
+		if($endPoint['action'] == 'GetLowestPricedOffersForASIN'){
+			$response = $this->client->request(
+				'POST',
+				$this->config['Region_Url'] . $endPoint['path'],
+				['form_params' => $query]
+			);
+		}else{
+			$response = $this->client->request(
+				$endPoint['method'],
+				$this->config['Region_Url'] . $endPoint['path'],
+				$requestOptions
+			);
+		}
 
 
 
