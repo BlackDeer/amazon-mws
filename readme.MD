@@ -5,7 +5,7 @@ Interaction with the Amazon Api for vendors called MWS
 
 ### Installation:
 ```bash
-$ composer require mcs/amazon-mws
+$ composer require blackdeer/amazon-mws
 ```
 ### Initiate the client
 ```php
