@@ -770,6 +770,26 @@ class MWSClient{
     }
 
     /**
+     * Attempting to register a destination to a feed
+     */
+    public function RegisterDestination($destination)
+    {
+        $query = [
+            'MarketplaceId' => $this->config['Marketplace_Id'],
+            'Destination' => $destination
+        ];
+
+        $result = $this->request('RegisterDestination', $query);
+
+        if (isset($result['RegisterDestinationResult'])) {
+            return $result['RegisterDestinationResult'];
+        } else {
+            return false;
+        }
+
+    }
+
+    /**
      * Returns a list of marketplaces that the seller submitting the request can sell in, and a list of participations that include seller-specific information in that marketplace
      * @return array
      */
