@@ -1,5 +1,5 @@
 # Amazon Marketplace Webservices
-Forked from meertensm/amazon-mws
+Forked from meertensm/amazon-mws. Expanded with basic SQS subscription methods. 
 
 Interaction with the Amazon Api for vendors called MWS
 
@@ -190,4 +190,19 @@ $client->updateStock($array);
 
 // A method to quickly check if the supplied credentials are valid
 $client->validateCredentials();
+
+// A method to send a test notification to an SQS url
+$client->SendTestNotificationToDestination($destination);
+
+// Register a SQS destination for subscription
+$client->RegisterDestination($destination);
+
+// Add a subscription buy passing a destination and subscription type (i.e. 'AnyOfferChanged')
+$client->CreateSubscription($destination, $type);
+
+// List all registered destination
+$client->ListRegisteredDestinations();
+
+// List all subscriptions
+$client->ListSubscriptions();
 ```
