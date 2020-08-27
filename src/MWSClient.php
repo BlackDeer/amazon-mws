@@ -77,6 +77,127 @@ class MWSClient{
     }
 
     /**
+     * Register an SQS destination for Subscriptions
+     * @param $destination
+     * @return false|mixed|string
+     * @throws Exception
+     */
+    public function RegisterDestination($destination)
+    {
+        $query = [
+            'MarketplaceId' => $this->config['Marketplace_Id'],
+            'Destination.AttributeList.member.1.Key' => 'sqsQueueUrl',
+            'Destination.AttributeList.member.1.Value' => $destination,
+            'Destination.DeliveryChannel' => 'SQS',
+        ];
+
+        $result = $this->request('RegisterDestination', $query);
+
+        if (isset($result['RegisterDestinationResult'])) {
+            return $result['RegisterDestinationResult'];
+        } else {
+            return false;
+        }
+
+    }
+
+    /**
+     * List Registered Destinations
+     * @param $destination
+     * @return false|mixed|string
+     * @throws Exception
+     */
+    public function ListRegisteredDestinations()
+    {
+        $query = [
+            'MarketplaceId' => $this->config['Marketplace_Id'],
+        ];
+
+        $result = $this->request('ListRegisteredDestinations', $query);
+
+        if (isset($result['ListRegisteredDestinationsResult'])) {
+            return $result['ListRegisteredDestinationsResult']['DestinationList']['member'];
+        } else {
+            return false;
+        }
+
+    }
+
+    /**
+     * Register an SQS destination for Subscriptions
+     * @param $destination
+     * @param $subscription
+     * @return false|mixed|string
+     * @throws Exception
+     */
+    public function CreateSubscription($destination, $subscription)
+    {
+        $query = [
+            'MarketplaceId' => $this->config['Marketplace_Id'],
+            'Subscription.Destination.AttributeList.member.1.Key' => 'sqsQueueUrl',
+            'Subscription.Destination.AttributeList.member.1.Value' => $destination,
+            'Subscription.Destination.DeliveryChannel' => 'SQS',
+            'Subscription.IsEnabled' => true,
+            'Subscription.NotificationType' => $subscription,
+        ];
+
+        $result = $this->request('CreateSubscription', $query);
+
+        if (isset($result['CreateSubscriptionResult'])) {
+            return $result['CreateSubscriptionResult'];
+        } else {
+            return false;
+        }
+
+    }
+
+    /**
+     * List Subscriptions
+     * @return false|mixed|string
+     * @throws Exception
+     */
+    public function ListSubscriptions()
+    {
+        $query = [
+            'MarketplaceId' => $this->config['Marketplace_Id'],
+        ];
+
+        $result = $this->request('ListSubscriptions', $query);
+
+        if (isset($result['ListSubscriptionsResult'])) {
+            return $result['ListSubscriptionsResult']['SubscriptionList']['member'];
+        } else {
+            return false;
+        }
+
+    }
+
+    /**
+     * Send a  test notification to an SQS destination
+     * @param $destination
+     * @return false|mixed|string
+     * @throws Exception
+     */
+    public function SendTestNotificationToDestination($destination)
+    {
+        $query = [
+            'MarketplaceId' => $this->config['Marketplace_Id'],
+            'Destination.AttributeList.member.1.Key' => 'sqsQueueUrl',
+            'Destination.AttributeList.member.1.Value' => $destination,
+            'Destination.DeliveryChannel' => 'SQS',
+        ];
+
+        $result = $this->request('SendTestNotificationToDestination', $query);
+
+        if (isset($result['SendTestNotificationToDestinationResult'])) {
+            return $result['SendTestNotificationToDestinationResult'];
+        } else {
+            return false;
+        }
+
+    }
+
+    /**
      * Call this method to get the raw feed instead of sending it
      */
     public function debugNextFeed()
@@ -763,26 +884,6 @@ class MWSClient{
 
         if (isset($result['ListRecommendationsResult'])) {
             return $result['ListRecommendationsResult'];
-        } else {
-            return false;
-        }
-
-    }
-
-    /**
-     * Attempting to register a destination to a feed
-     */
-    public function RegisterDestination($destination)
-    {
-        $query = [
-            'MarketplaceId' => $this->config['Marketplace_Id'],
-            'Destination' => $destination
-        ];
-
-        $result = $this->request('RegisterDestination', $query);
-
-        if (isset($result['RegisterDestinationResult'])) {
-            return $result['RegisterDestinationResult'];
         } else {
             return false;
         }
