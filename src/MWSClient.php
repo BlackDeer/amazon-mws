@@ -77,6 +77,49 @@ class MWSClient{
     }
 
     /**
+     * @return array|false|string
+     * @throws Exception
+     */
+    public function ListInboundShipments(){ //$shipmentStatusList
+        $query = [
+            'ShipmentStatusList.member.1' => 'SHIPPED',
+            'ShipmentStatusList.member.2' => 'WORKING',
+            'ShipmentStatusList.member.3' => 'IN_TRANSIT',
+            'ShipmentStatusList.member.4' => 'DELIVERED',
+//            'ShipmentStatusList.member.5' => 'CHECKED_IN',
+//            'ShipmentStatusList.member.6' => 'RECEIVING',
+//            'ShipmentStatusList.member.7' => 'CLOSED',
+//            'ShipmentStatusList.member.8' => 'CANCELLED',
+//            'ShipmentStatusList.member.9' => 'DELETED',
+//            'ShipmentStatusList.member.10' => 'ERROR',
+        ];
+
+        $result = $this->request('ListInboundShipments', $query);
+        if(isset($result['ListInboundShipmentsResult'])){
+            return $result;
+        }else{
+            return false;
+        }
+    }
+
+    /**
+     * @return array|false|string
+     * @throws Exception
+     */
+    public function ListInboundShipmentItems($shipmentId){ //$shipmentStatusList
+        $query = [
+            'ShipmentId' => $shipmentId,
+        ];
+
+        $result = $this->request('ListInboundShipmentItems', $query);
+        if(isset($result['ListInboundShipmentItemsResult'])){
+            return $result;
+        }else{
+            return false;
+        }
+    }
+
+    /**
      * Register an SQS destination for Subscriptions
      * @param $destination
      * @return false|mixed|string
@@ -1370,7 +1413,12 @@ class MWSClient{
                 )
             );
 
-            $requestOptions['query'] = $query;
+            // GetLowestPricedOffersForASIN need to pass query as form_params or error
+            if($endPoint['action'] === 'GetLowestPricedOffersForASIN'){
+                $requestOptions['form_params'] = $query;
+            }else{
+                $requestOptions['query'] = $query;
+            }
             
             if($this->client === NULL) {
                 $this->client = new Client();

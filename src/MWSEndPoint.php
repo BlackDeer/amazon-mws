@@ -6,6 +6,18 @@ use Exception;
 class MWSEndPoint{
 
     public static $endpoints = [
+        'ListInboundShipmentItems' => [
+            'method' => 'POST',
+            'action' => 'ListInboundShipmentItems',
+            'path' => '/FulfillmentInboundShipment/2010-10-01',
+            'date' => '2010-10-01',
+        ],
+        'ListInboundShipments' => [
+            'method' => 'POST',
+            'action' => 'ListInboundShipments',
+            'path' => '/FulfillmentInboundShipment/2010-10-01',
+            'date' => '2010-10-01',
+        ],
         'ListSubscriptions' => [
             'method' => 'POST',
             'action' => 'ListSubscriptions',
