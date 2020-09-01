@@ -2,7 +2,7 @@
     "name": "blackdeer/amazon-mws",
     "description": "Library to interface with Amazon MWS",
     "license": "MIT",
-    "keywords": ["amazon", "mws"],
+    "keywords": ["amazon", "mws", "api"],
     "minimum-stability": "dev",
     "authors": [
         {
