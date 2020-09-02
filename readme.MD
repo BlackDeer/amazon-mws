@@ -1,5 +1,7 @@
 # Amazon Marketplace Webservices
-Forked from meertensm/amazon-mws. Expanded with basic SQS subscription methods. 
+Forked from meertensm/amazon-mws. Expanded with basic SQS subscription methods. Fixed the GetLowestPricesOffersForASIN problem.
+
+No testing for now.
 
 Interaction with the Amazon Api for vendors called MWS
 

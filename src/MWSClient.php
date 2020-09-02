@@ -80,18 +80,20 @@ class MWSClient{
      * @return array|false|string
      * @throws Exception
      */
-    public function ListInboundShipments(){ //$shipmentStatusList
+    public function ListInboundShipments(){
+
+        //$shipmentStatusList
         $query = [
             'ShipmentStatusList.member.1' => 'SHIPPED',
             'ShipmentStatusList.member.2' => 'WORKING',
             'ShipmentStatusList.member.3' => 'IN_TRANSIT',
             'ShipmentStatusList.member.4' => 'DELIVERED',
-//            'ShipmentStatusList.member.5' => 'CHECKED_IN',
-//            'ShipmentStatusList.member.6' => 'RECEIVING',
-//            'ShipmentStatusList.member.7' => 'CLOSED',
-//            'ShipmentStatusList.member.8' => 'CANCELLED',
-//            'ShipmentStatusList.member.9' => 'DELETED',
-//            'ShipmentStatusList.member.10' => 'ERROR',
+            'ShipmentStatusList.member.5' => 'CHECKED_IN',
+            'ShipmentStatusList.member.6' => 'RECEIVING',
+            'ShipmentStatusList.member.7' => 'CLOSED',
+            'ShipmentStatusList.member.8' => 'CANCELLED',
+            'ShipmentStatusList.member.9' => 'DELETED',
+            'ShipmentStatusList.member.10' => 'ERROR',
         ];
 
         $result = $this->request('ListInboundShipments', $query);
@@ -100,6 +102,25 @@ class MWSClient{
         }else{
             return false;
         }
+    }
+
+    /**
+     * Returns inbound shipments by next token.
+     * @param string $nextToken
+     * @return array
+     */
+    public function ListInboundShipmentsByNextToken($nextToken)
+    {
+        $query = [
+            'NextToken' => $nextToken,
+        ];
+
+        $response = $this->request(
+            'ListInboundShipmentsByNextToken',
+            $query
+        );
+
+        return $response;
     }
 
     /**
