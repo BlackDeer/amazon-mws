@@ -80,7 +80,7 @@ class MWSClient{
      * @return array|false|string
      * @throws Exception
      */
-    public function ListInboundShipments(){
+    public function ListInboundShipments($lastUpdatedAfter, $lastUpdatedBefore){
 
         //$shipmentStatusList
         $query = [
@@ -95,6 +95,11 @@ class MWSClient{
             'ShipmentStatusList.member.9' => 'DELETED',
             'ShipmentStatusList.member.10' => 'ERROR',
         ];
+
+        if($lastUpdatedAfter && $lastUpdatedBefore){
+            $dateTimeQuery = ['LastUpdatedBefore' => $lastUpdatedBefore, 'LastUpdatedAfter' => $lastUpdatedAfter];
+            $query = array_merge($query, $dateTimeQuery);
+        }
 
         $result = $this->request('ListInboundShipments', $query);
         if(isset($result['ListInboundShipmentsResult'])){
