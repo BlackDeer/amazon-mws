@@ -1,8 +1,8 @@
 {
     "name": "blackdeer/amazon-mws",
-    "description": "Library to interface with Amazon MWS",
+    "description": "A php library to interface with Amazon MWS API",
     "license": "MIT",
-    "keywords": ["amazon", "mws", "api"],
+    "keywords": ["amazon", "mws", "api", "php"],
     "minimum-stability": "dev",
     "authors": [
         {

@@ -207,4 +207,16 @@ $client->ListRegisteredDestinations();
 
 // List all subscriptions
 $client->ListSubscriptions();
+
+// List inbound shipments
+$client->ListInboundShipments();
+
+// List inbound shipments with next token
+$client->ListInboundShipmentsByNextToken($nextToken);
+
+// List inbound shipment items
+$client->ListInboundShipments($shipmentId);
+
+// List inbound shipment items with next token
+$client->ListInboundShipmentsByNextToken($nextToken);
 ```

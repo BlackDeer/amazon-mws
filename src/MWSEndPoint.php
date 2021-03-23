@@ -12,6 +12,12 @@ class MWSEndPoint{
             'path' => '/FulfillmentInboundShipment/2010-10-01',
             'date' => '2010-10-01',
         ],
+        'ListInboundShipmentItemsByNextToken' => [
+            'method' => 'POST',
+            'action' => 'ListInboundShipmentItemsByNextToken',
+            'path' => '/FulfillmentInboundShipment/2010-10-01',
+            'date' => '2010-10-01',
+        ],
         'ListInboundShipmentsByNextToken' => [
             'method' => 'POST',
             'action' => 'ListInboundShipmentsByNextToken',

@@ -41,7 +41,7 @@ class MWSClient{
         'A1VC38T7YXB528' => 'mws.amazonservices.jp',
         'AAHKV2X7AFYLW' => 'mws.amazonservices.com.cn',
         'A39IBJ37TRP1C6' => 'mws.amazonservices.com.au',
-	'A2Q3Y263D00KWC' => 'mws.amazonservices.com'
+	    'A2Q3Y263D00KWC' => 'mws.amazonservices.com'
     ];
 
     protected $debugNextFeed = false;
@@ -138,6 +138,25 @@ class MWSClient{
         }else{
             return false;
         }
+    }
+
+    /**
+     * Returns inbound shipment items by next token.
+     * @param string $nextToken
+     * @return array
+     */
+    public function ListInboundShipmentItemsByNextToken($nextToken)
+    {
+        $query = [
+            'NextToken' => $nextToken,
+        ];
+
+        $response = $this->request(
+            'ListInboundShipmentItemsByNextToken',
+            $query
+        );
+
+        return $response;
     }
 
     /**
